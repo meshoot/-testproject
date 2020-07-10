@@ -1,14 +1,21 @@
 <template>
-    <Page/>
+	<Page>
+		<Canvas/>
+	</Page>
 </template>
 
 <script>
-    import Page from "../components/Page";
+	import Page from "../components/Page";
+	import Canvas from "../components/UI/Canvas";
 
 	export default {
 		name: 'Main',
 		components: {
-            Page
-		}
+			Page,
+			Canvas
+		},
+		data: () => ({
+
+		})
 	}
 </script>
