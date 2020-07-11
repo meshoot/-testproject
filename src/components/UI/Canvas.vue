@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<canvas ref="canvas" :width="width" :height="height"></canvas>
+		<canvas ref="canvas" :width="width" :height="height">
+			<slot/>
+		</canvas>
 	</div>
 </template>
 
