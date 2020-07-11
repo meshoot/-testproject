@@ -1,0 +1,22 @@
+{
+  "files": [
+    {
+      "id": "fb8eacd3-c019-40a7-af52-cccf91599330",
+      "name": "Name 1",
+      "parent": null,
+      "children": []
+    },
+    {
+      "id": "222fbb93-fd33-4727-912c-d6df3f82e7e1",
+      "name": "Name 2",
+      "parent": null,
+      "children": []
+    },
+    {
+      "id": "a03da357-ca89-4ec8-9707-139eba336704",
+      "name": "Name 3",
+      "parent": null,
+      "children": []
+    }
+  ]
+}
