@@ -1,26 +1,29 @@
 <template>
 	<Page class="canvas-wrapper">
-		<ul>
-			<li v-for="el in canvasElements" :key="el.id">
-				<Parent
-					v-if="el.children && el.children.length > 0"
-					:id="el.id"
-					:name="el.name"
-					:position="el.position"
-					:children="el.children"
-					@onAddChild="addChildHandler(el.id, $event.child)"
-					class="canvas-wrapper__item"
-				/>
-				<Child
-					v-else
-					:id="el.id"
-					:name="el.name"
-					:position="el.position"
-					:parent="el.parent"
-					class="canvas-wrapper__item"
-				/>
-			</li>
-		</ul>
+		<div
+			v-for="el in canvasElements"
+			:key="el.id"
+			@dragstart="() => false"
+			@mousedown="mouseDownHandler"
+		>
+			<Parent
+				v-if="el.children && el.children.length > 0"
+				:id="el.id"
+				:name="el.name"
+				:children="el.children"
+				:style="{top: el.position.y, left: el.position.x}"
+				@onAddChild="addChildHandler(el.id, $event.child)"
+				class="canvas-wrapper__item"
+			/>
+			<Child
+				v-else
+				:id="el.id"
+				:name="el.name"
+				:parent="el.parent"
+				:style="{top: el.position.y, left: el.position.x}"
+				class="canvas-wrapper__item"
+			/>
+		</div>
 		<Canvas class="nodes-canvas"/>
 	</Page>
 </template>
@@ -45,6 +48,23 @@
 			canvasElements: []
 		}),
 		methods: {
+			mouseDownHandler(e) {
+				const target = e.target;
+				const shiftX = e.clientX - target.getBoundingClientRect().left;
+				const shiftY = e.clientY - target.getBoundingClientRect().top;
+
+				target.style.zIndex = 100;
+				this.moveElement(target, { x: e.pageX - shiftX, y: e.pageY - shiftY });
+				target.addEventListener('mousemove', e => {
+					this.moveElement(target, {x: e.pageX, y: e.pageY})
+				})
+			},
+			moveElement(el, coordinates) {
+				const {x, y} = coordinates;
+
+				el.style.left = `${x}px`;
+				el.style.top = `${y}px`;
+			},
 			addChildHandler(id, child) {
 				const canvasElements = [...this.canvasElements];
 				const parent = canvasElements.filter(el => el.id === id)[0];
@@ -76,21 +96,7 @@
 		&__item {
 			position: absolute;
 			z-index: 10;
-		}
-
-		ul {
-			display: block;
-			width: 100%;
-			height: 100%;
-			padding: 0;
-			margin: 0;
-			list-style: none;
-
-			li {
-				display: inline-block;
-				padding: 0;
-				margin: 0;
-			}
+			cursor: pointer;
 		}
 
 		canvas {

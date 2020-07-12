@@ -1,5 +1,5 @@
 <template>
-	<div class="parent" :style="{top: position.y, left: position.x}">
+	<div class="parent">
 		<div class="parent__name">{{ name }}</div>
 		<button @click="addChild" class="btn parent__btn add-btn">+</button>
 	</div>
@@ -24,13 +24,6 @@
 				type: Array,
 				required: false,
 				default: () => []
-			},
-			position: {
-				type: Object,
-				required: false,
-				default: () => ({
-					x: 0, y: 0
-				})
 			}
 		},
 		methods: {

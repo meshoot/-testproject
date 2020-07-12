@@ -1,5 +1,5 @@
 <template>
-	<div class="child" :style="{top: position.y, left: position.x}">
+	<div class="child">
 		<div class="child__name">{{ name }}</div>
 		<button @click="removeParent" class="btn child__btn remove-btn">-</button>
 	</div>
@@ -21,14 +21,6 @@
 			parent: {
 				type: String,
 				required: false,
-			},
-			position: {
-				type: Object,
-				required: true,
-				default: () => ({
-					x: 0,
-					y: 0,
-				})
 			}
 		},
 		methods: {
