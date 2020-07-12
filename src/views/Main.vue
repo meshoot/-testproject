@@ -8,6 +8,7 @@
 					:name="el.name"
 					:position="el.position"
 					:children="el.children"
+					@onAddChild="addChildHandler(el.id, $event.child)"
 					class="canvas-wrapper__item"
 				/>
 				<Child
@@ -44,7 +45,17 @@
 			canvasElements: []
 		}),
 		methods: {
+			addChildHandler(id, child) {
+				const canvasElements = [...this.canvasElements];
+				const parent = canvasElements.filter(el => el.id === id)[0];
+				const childCopy = {...child};
 
+				childCopy.position = { x: 0, y: 0 };
+				parent.children.push(child.id);
+				canvasElements.push(child);
+
+				this.canvasElements = canvasElements
+			}
 		},
 		beforeMount() {
 			const canvasElements = data.elements;

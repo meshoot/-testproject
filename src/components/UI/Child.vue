@@ -1,7 +1,7 @@
 <template>
 	<div class="child" :style="{top: position.y, left: position.x}">
 		<div class="child__name">{{ name }}</div>
-		<button @click="removeParent" class="btn child__btn remove-btn">+</button>
+		<button @click="removeParent" class="btn child__btn remove-btn">-</button>
 	</div>
 </template>
 

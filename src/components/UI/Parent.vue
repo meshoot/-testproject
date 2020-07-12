@@ -6,6 +6,8 @@
 </template>
 
 <script>
+	import uniqid from 'uniqid'
+
 	export default {
 		name: 'Parent',
 		props: {
@@ -32,8 +34,15 @@
 			}
 		},
 		methods: {
-			addChild(id) {
-				this.child.push(id)
+			addChild() {
+				const child = {
+					id: uniqid(),
+					name: 'New child',
+					parent: this.id,
+					children: []
+				};
+
+				this.$emit('onAddChild', {child})
 			}
 		}
 	}
